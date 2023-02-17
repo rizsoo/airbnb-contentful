@@ -1,15 +1,31 @@
 import React from 'react'
-import styled from 'styled-components'
+import './zero.css'
+// import styled from 'styled-components'
 import { graphql } from "gatsby"
-import PageContentSection from "../components/PageContentSection"
 
-const PageTemplate = ({ data: { page } }) => {
-    console.log(page);
-    return (
-        <div>
-            <PageContentSection title={page.title} content={page.content} />
-        </div>
-    )
+import PageContentSection from "../components/PageContentSection"
+import MenuList from '../components/MenuList'
+
+const PageTemplate = ({ data: { page, navbar } }) => {
+  console.log(navbar);
+  return (
+    <div>
+      <PageContentSection title={page && page.title} content={page && page.content} />
+      {page.component && page.component.map((el, i) => {
+        console.log(el);
+        return (
+          <MenuList
+            key={i}
+            title={el.title}
+            description={el.description.description}
+            featured_image={el.featuredImage ? el.featuredImage.url : el.image.url}
+            slug={el.slug}
+            node_locale={el.node_locale}
+          />
+        )
+      })}
+    </div>
+  )
 }
 
 export const query = graphql`
@@ -35,9 +51,40 @@ query MyQuery($slug: String, $node_locale: String) {
         }
         node_locale
         title
+        component {
+          ... on ContentfulPage {
+            title
+            featuredImage {
+              url
+            }
+            description {
+              description
+            }
+            slug
+            node_locale
+          }
+          ... on ContentfulSimpleCard {
+            image {
+              url
+            }
+            title
+            description {
+              description
+            }
+          }
+        }
         featuredImage {
           url
         }
+    }
+    navbar: allContentfulMenu {
+      nodes {
+        menuItem {
+          title
+          slug
+          node_locale
+        }
+      }
     }
 }
 `

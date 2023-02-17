@@ -1,15 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { BLOCKS, INLINES } from "@contentful/rich-text-types"
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+// import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 
 const PageContentSection = ({ title, content }) => {
-    console.log(content);
+    // console.log(content);
     const options = {
         renderNode: {
             [BLOCKS.EMBEDDED_ASSET]: (node) => {
-                console.log(node);
+                // console.log(node);
                 let link = node.data.target.description;
                 if (link) {
                     return <a href={link} target={link.includes("http") && "_blank"}><img src={node.data.target.file.url} alt="" /></a>

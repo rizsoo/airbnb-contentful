@@ -11,10 +11,19 @@ code {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 h3 {
     font-size: 1.75rem;
+}
+
+h4 {
+    border-bottom: 1px solid grey;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 1.5rem;
 }
 
 img {
