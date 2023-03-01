@@ -4,27 +4,11 @@ import './zero.css'
 import { graphql } from "gatsby"
 
 import PageContentSection from "../components/PageContentSection"
-import MenuList from '../components/MenuList'
 
 const PageTemplate = ({ data: { page, navbar } }) => {
-  console.log(navbar);
+  console.log(page);
   return (
-    <div>
-      <PageContentSection title={page && page.title} content={page && page.content} />
-      {page.component && page.component.map((el, i) => {
-        console.log(el);
-        return (
-          <MenuList
-            key={i}
-            title={el.title}
-            description={el.description.description}
-            featured_image={el.featuredImage ? el.featuredImage.url : el.image.url}
-            slug={el.slug}
-            node_locale={el.node_locale}
-          />
-        )
-      })}
-    </div>
+    <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} />
   )
 }
 
@@ -42,6 +26,85 @@ query MyQuery($slug: String, $node_locale: String) {
                 url
               }
             }
+            ... on ContentfulPageList {
+              title
+              componentId
+              __typename
+              contentful_id
+              page {
+                title
+                featuredImage {
+                  url
+                }
+                description {
+                  description
+                }
+                slug
+                node_locale
+              }
+            }
+            ... on ContentfulMozaikLayoutCards {
+              title
+              componentId
+              __typename
+              contentful_id
+              cards {
+                title
+                featuredImage {
+                  url
+                }
+                description {
+                  description
+                }
+                slug
+                node_locale
+              }
+            }
+            ... on ContentfulBorderlessSimpleCardList {
+              title
+              componentId
+              __typename
+              contentful_id
+              cards {
+                title
+                image {
+                  url
+                }
+                description {
+                  description
+                }
+              }
+            }
+            ... on ContentfulAlertCard {
+              title
+              componentId
+              __typename
+              contentful_id
+              card {
+                title
+                image {
+                  url
+                }
+                description {
+                  description
+                }
+              }
+            }
+            ... on ContentfulSlideShow {
+              title
+              componentId
+              __typename
+              contentful_id
+              slide {
+                  image {
+                    url
+                  }
+                  title
+                  description {
+                    description
+                  }
+              }
+            }
           }
         }
         contentful_id
@@ -51,41 +114,28 @@ query MyQuery($slug: String, $node_locale: String) {
         }
         node_locale
         title
-        component {
-          ... on ContentfulPage {
-            title
-            featuredImage {
-              url
-            }
-            description {
-              description
-            }
-            slug
-            node_locale
-          }
-          ... on ContentfulSimpleCard {
-            image {
-              url
-            }
-            title
-            description {
-              description
-            }
-          }
-        }
         featuredImage {
           url
         }
     }
-    navbar: allContentfulMenu {
-      nodes {
-        menuItem {
+    navbar: contentfulPageList(node_locale: {eq: $node_locale}, componentId: {eq: "navbar"}) {
+        title
+        node_locale
+        componentId
+        __typename
+        contentful_id
+        page {
           title
+          featuredImage {
+            url
+          }
+          description {
+            description
+          }
           slug
           node_locale
-        }
+          }
       }
-    }
 }
 `
 

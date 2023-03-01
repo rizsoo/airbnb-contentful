@@ -2,16 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
 
-const MenuList = ({ ...props }) => {
+const MenuList = ({ props }) => {
     // console.log(props);
     return (
         <MenuBox>
-            <Link to={`${props.node_locale}/${props.slug}`}>
+            <Link to={`/${props.node_locale}/${props.slug}`}>
                 <MenuSection>
-                    <img src={props.featured_image} alt='image_menu' />
+                    {props.featuredImage || props.image ? <img src={props.featuredImage ? props.featuredImage.url : props.image.url} alt='image_menu' /> : null}
                     <div>
                         <h3>{props.title}</h3>
-                        <p>{props.description}</p>
+                        <p>{props.description && props.description.description}</p>
                     </div>
                 </MenuSection>
                 {/* <Link to={props.link}><button>{t("read")}</button></Link> */}
@@ -23,7 +23,6 @@ const MenuList = ({ ...props }) => {
 export default MenuList
 
 export const MenuBox = styled.div`
-    width: calc(100vw - 30px);
     max-width: 600px;
     min-height: 100px;
 
