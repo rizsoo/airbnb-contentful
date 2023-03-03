@@ -8,7 +8,7 @@ import PageContentSection from "../components/PageContentSection"
 const PageTemplate = ({ data: { page, navbar } }) => {
   console.log(page);
   return (
-    <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} />
+    <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} lang={page && page} />
   )
 }
 
@@ -28,7 +28,6 @@ query MyQuery($slug: String, $node_locale: String) {
             }
             ... on ContentfulPageList {
               title
-              componentId
               __typename
               contentful_id
               page {
@@ -45,7 +44,99 @@ query MyQuery($slug: String, $node_locale: String) {
             }
             ... on ContentfulMozaikLayoutCards {
               title
-              componentId
+              __typename
+              contentful_id
+              cards {
+                title
+                featuredImage {
+                  url
+                }
+                description {
+                  description
+                }
+                slug
+                node_locale
+              }
+              sys {
+                type
+              }
+            }
+            ... on ContentfulShowHideCards {
+              title
+              __typename
+              contentful_id
+              cards {
+                title
+                image {
+                  url
+                }
+                description {
+                  description
+                }
+                link
+              }
+            }
+            ... on ContentfulBorderlessSimpleCardList {
+              title
+              __typename
+              contentful_id
+              cards {
+                title
+                image {
+                  url
+                }
+                description {
+                  description
+                }
+              }
+            }
+            ... on ContentfulFiftyFiftyCards {
+              title
+              __typename
+              contentful_id
+              cards {
+                title
+                image {
+                  url
+                }
+                description {
+                  description
+                }
+                link
+              }
+            }
+            ... on ContentfulSearchEngine {
+              title
+              __typename
+              contentful_id
+              cards {
+                title
+                image {
+                  url
+                }
+                description {
+                  description
+                }
+                link
+                tags
+              }
+            }
+            ... on ContentfulAlertCard {
+              title
+              __typename
+              contentful_id
+              card {
+                title
+                image {
+                  url
+                }
+                description {
+                  description
+                }
+              }
+            }
+            ... on ContentfulFullCoverCard {
+              title
               __typename
               contentful_id
               cards {
@@ -60,39 +151,16 @@ query MyQuery($slug: String, $node_locale: String) {
                 node_locale
               }
             }
-            ... on ContentfulBorderlessSimpleCardList {
+            ... on ContentfulInlineGallery {
               title
-              componentId
               __typename
               contentful_id
-              cards {
-                title
-                image {
-                  url
-                }
-                description {
-                  description
-                }
-              }
-            }
-            ... on ContentfulAlertCard {
-              title
-              componentId
-              __typename
-              contentful_id
-              card {
-                title
-                image {
-                  url
-                }
-                description {
-                  description
-                }
+              image {
+                url
               }
             }
             ... on ContentfulSlideShow {
               title
-              componentId
               __typename
               contentful_id
               slide {
@@ -118,11 +186,9 @@ query MyQuery($slug: String, $node_locale: String) {
           url
         }
     }
-    navbar: contentfulPageList(node_locale: {eq: $node_locale}, componentId: {eq: "navbar"}) {
+    navbar: contentfulPageList(node_locale: {eq: $node_locale}, title: {eq: "navbar"}) {
         title
         node_locale
-        componentId
-        __typename
         contentful_id
         page {
           title

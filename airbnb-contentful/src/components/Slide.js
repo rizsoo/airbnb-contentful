@@ -4,8 +4,8 @@ import { useState } from "react";
 import styled from 'styled-components';
 import { ArrowBackCircleOutline, ArrowForwardCircleOutline } from 'react-ionicons'
 
-export const GuideSlide = ({ ...props }) => {
-    console.log(props.props);
+export const Slide = ({ props }) => {
+    // console.log(props.props);
     let items = props.props
     const [current, setCurrent] = useState(0);
     const length = items.length;

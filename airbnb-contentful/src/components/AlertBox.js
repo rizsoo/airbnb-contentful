@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const AlertBox = (props) => {
     let data = props.props
-    console.log(data);
+    // console.log(data);
     return (
         <>
             {data.map(el => {

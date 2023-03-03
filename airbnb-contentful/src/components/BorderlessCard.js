@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const BorderlessCard = (props) => {
   let data = props.props
-  console.log(data);
+  // console.log(data);
   return (
     <>
       {data.map(el => {
@@ -11,7 +11,7 @@ const BorderlessCard = (props) => {
           <Card>
             <div>
               <h3><b>{el.title}</b></h3>
-              <p>{el.description.description}</p>
+              <p>{el.description && el.description.description}</p>
             </div>
             <img src={el.image && el.image.url} alt='' />
           </Card>
@@ -32,8 +32,9 @@ export const Card = styled.div`
 
   margin: 20px auto;
   img {
-    width: 150px;
+    max-width: 200px;
     height: 150px;
+    object-fit: cover;
   }
   @media (max-width: 600px) {
       flex-direction: row-reverse;

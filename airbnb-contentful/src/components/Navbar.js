@@ -16,6 +16,7 @@ export const Navbar = ({ navbar }) => {
                     color={'#00000'}
                     title={"asd"}
                     height="45px"
+                    stroke-width="10"
                     width="45px"
                     style={{ transform: "rotate(-45deg)" }}
                     onClick={() => setIsOpen(false)}

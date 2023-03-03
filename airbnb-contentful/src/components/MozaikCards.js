@@ -19,18 +19,22 @@ export const MozaikCards = ({ props }) => {
     )
 }
 export const GuideComponent = styled.div`
-    max-width: 600px;
-    display: flex;
-    flex-wrap: wrap;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     height: auto;
 
     margin: 10px auto;
+    a {
+        max-width: calc(300px - 10px);
+        height: 180px; 
+    }
 `
 export const GuideCards = styled.div`
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 10px;
 
-    width: calc(50vw - 20px);
-    max-width: calc(300px - 20px);
+    max-width: calc(300px - 10px);
     height: 180px;
 
     display: flex;
@@ -39,8 +43,7 @@ export const GuideCards = styled.div`
     align-items: center;
     gap: 15px;
 
-    border-radius: 20px;
-    margin: 10px;
+    border-radius: 10px;
     img {
         height: 55px;
     }
@@ -48,5 +51,10 @@ export const GuideCards = styled.div`
         font-weight: bold;
         text-align: center;
         padding: 0 15px;
+      }
+      @media (max-width: 415px) {
+        h5 {
+            font-size: 18px;
+        }
       }
 `

@@ -2,6 +2,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Airbnb Cereal App", sans-serif;
+    cursor: default;
+}
+
+input,
+button {
+    font-family: "Airbnb Cereal App", sans-serif;
 }
 
 code {
@@ -12,6 +18,7 @@ code {
 a {
     text-decoration: none;
     color: inherit;
+    cursor: pointer !important;
 }
 
 h3 {
