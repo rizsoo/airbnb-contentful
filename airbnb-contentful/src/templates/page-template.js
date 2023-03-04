@@ -159,20 +159,6 @@ query MyQuery($slug: String, $node_locale: String) {
                 url
               }
             }
-            ... on ContentfulSlideShow {
-              title
-              __typename
-              contentful_id
-              slide {
-                  image {
-                    url
-                  }
-                  title
-                  description {
-                    description
-                  }
-              }
-            }
           }
         }
         contentful_id

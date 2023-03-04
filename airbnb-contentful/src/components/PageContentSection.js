@@ -47,12 +47,6 @@ const PageContentSection = ({ title, content, navbar, lang }) => {
                                 )
                             })
                         )
-                    case "ContentfulSlideShow":
-                        return (
-                            <Slide
-                                props={data.slide}
-                            />
-                        )
                     case "ContentfulBorderlessSimpleCardList":
                         return (
                             <BorderlessCard
