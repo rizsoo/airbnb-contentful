@@ -14,7 +14,6 @@ const React = require(`react`);
 exports.React = React;
 const path = require(`path`);
 const {
-  renderToString,
   renderToStaticMarkup,
   renderToPipeableStream
 } = require(`react-dom/server`);
@@ -228,13 +227,6 @@ async function staticPage({
       slicesMap
     } = pageData;
     const pageComponent = await asyncRequires.components[componentChunkName]();
-    headHandlerForSSR({
-      pageComponent,
-      setHeadComponents,
-      staticQueryContext,
-      pageData,
-      pagePath
-    });
     class RouteHandler extends React.Component {
       render() {
         var _pageData$result, _pageData$result$page;
@@ -368,6 +360,18 @@ async function staticPage({
       scripts,
       styles,
       pathPrefix: __PATH_PREFIX__
+    });
+
+    // we want to run Head after onRenderBody, so Html and Body attributes
+    // from Head wins over global ones from onRenderBody
+    headHandlerForSSR({
+      pageComponent,
+      setHeadComponents,
+      setHtmlAttributes,
+      setBodyAttributes,
+      staticQueryContext,
+      pageData,
+      pagePath
     });
     reversedScripts.forEach(script => {
       // Add preload/prefetch <link>s magic comments

@@ -35,6 +35,12 @@ const createPageDataUrl = rawPath => {
   const fixedPath = path === `/` ? `index` : stripSurroundingSlashes(path);
   return `${__PATH_PREFIX__}/page-data/${fixedPath}/page-data.json${maybeSearch ? `?${maybeSearch}` : ``}`;
 };
+
+/**
+ * Utility to check the path that goes into doFetch for e.g. potential malicious intentions.
+ * It checks for "//" because with this you could do a fetch request to a different domain.
+ */
+const shouldAbortFetch = rawPath => rawPath.startsWith(`//`);
 function doFetch(url, method = `GET`) {
   return new Promise(resolve => {
     const req = new XMLHttpRequest();
@@ -339,10 +345,10 @@ class BaseLoader {
       const page = this.pageDb.get(pagePath);
       if (process.env.BUILD_STAGE !== `develop` || !page.payload.stale) {
         if (page.error) {
-          return {
+          return Promise.resolve({
             error: page.error,
             status: page.status
-          };
+          });
         }
         return Promise.resolve(page.payload);
       }
@@ -762,6 +768,9 @@ class ProdLoader extends BaseLoader {
   loadPageDataJson(rawPath) {
     return super.loadPageDataJson(rawPath).then(data => {
       if (data.notFound) {
+        if (shouldAbortFetch(rawPath)) {
+          return data;
+        }
         // check if html file exist using HEAD request:
         // if it does we should navigate to it instead of showing 404
         return doFetch(rawPath, `HEAD`).then(req => {
@@ -785,6 +794,9 @@ class ProdLoader extends BaseLoader {
   loadPartialHydrationJson(rawPath) {
     return super.loadPartialHydrationJson(rawPath).then(data => {
       if (data.notFound) {
+        if (shouldAbortFetch(rawPath)) {
+          return data;
+        }
         // check if html file exist using HEAD request:
         // if it does we should navigate to it instead of showing 404
         return doFetch(rawPath, `HEAD`).then(req => {

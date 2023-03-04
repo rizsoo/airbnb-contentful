@@ -21,6 +21,8 @@ var _routeAnnouncerProps = require("./route-announcer-props");
 var _reachRouter = require("@gatsbyjs/reach-router");
 var _headExportHandlerForSsr = require("./head/head-export-handler-for-ssr");
 var _loader = require("./loader");
+var _writableAsPromise = require("./server-utils/writable-as-promise");
+var _context = require("./slice/context");
 /* global BROWSER_ESM_ONLY */
 
 // prefer default export if available
@@ -129,16 +131,10 @@ async function staticPage({
     };
     const pageData = getPageData(pagePath);
     const {
-      componentChunkName
+      componentChunkName,
+      slicesMap
     } = pageData;
     const pageComponent = await _ssrSyncRequires.default.ssrComponents[componentChunkName];
-    (0, _headExportHandlerForSsr.headHandlerForSSR)({
-      pageComponent,
-      setHeadComponents,
-      staticQueryContext: (0, _loader.getStaticQueryResults)(),
-      pageData,
-      pagePath
-    });
     let scriptsAndStyles = (0, _flatten2.default)([`commons`].map(chunkKey => {
       const fetchKey = `assetsByChunkName[${chunkKey}]`;
       const stats = getStats(publicDir);
@@ -220,7 +216,7 @@ async function staticPage({
     }, /*#__PURE__*/_react.default.createElement(RouteHandler, {
       path: "/*"
     })), /*#__PURE__*/_react.default.createElement("div", _routeAnnouncerProps.RouteAnnouncerProps)) : null;
-    const bodyComponent = (0, _apiRunnerSsr.apiRunner)(`wrapRootElement`, {
+    let bodyComponent = (0, _apiRunnerSsr.apiRunner)(`wrapRootElement`, {
       element: routerElement,
       pathname: pagePath
     }, routerElement, ({
@@ -231,6 +227,43 @@ async function staticPage({
         pathname: pagePath
       };
     }).pop();
+    if (process.env.GATSBY_SLICES) {
+      const readSliceData = sliceName => {
+        const filePath = _path.default.join(publicDir, `slice-data`, `${sliceName}.json`);
+        const rawSliceData = _fsExtra.default.readFileSync(filePath, `utf-8`);
+        return JSON.parse(rawSliceData);
+      };
+      const slicesContext = {
+        renderEnvironment: `dev-ssr`
+      };
+      const sliceProps = {};
+      const slicesDb = new Map();
+      const sliceData = {};
+      for (const sliceName of Object.values(slicesMap)) {
+        sliceData[sliceName] = await readSliceData(sliceName);
+      }
+      for (const sliceName of Object.values(slicesMap)) {
+        const slice = sliceData[sliceName];
+        const {
+          default: SliceComponent
+        } = await getPageChunk(slice);
+        const sliceObject = {
+          component: SliceComponent,
+          sliceContext: slice.result.sliceContext,
+          data: slice.result.data
+        };
+        slicesDb.set(sliceName, sliceObject);
+      }
+      bodyComponent = /*#__PURE__*/_react.default.createElement(_context.SlicesContext.Provider, {
+        value: slicesContext
+      }, /*#__PURE__*/_react.default.createElement(_context.SlicesPropsContext.Provider, {
+        value: sliceProps
+      }, /*#__PURE__*/_react.default.createElement(_context.SlicesMapContext.Provider, {
+        value: slicesMap
+      }, /*#__PURE__*/_react.default.createElement(_context.SlicesResultsContext.Provider, {
+        value: slicesDb
+      }, bodyComponent))));
+    }
 
     // Let the site or plugin render the page component.
     await (0, _apiRunnerSsr.apiRunnerAsync)(`replaceRenderer`, {
@@ -249,7 +282,18 @@ async function staticPage({
     // If no one stepped up, we'll handle it.
     if (!bodyHtml) {
       try {
-        bodyHtml = (0, _server.renderToString)(bodyComponent);
+        const writableStream = new _writableAsPromise.WritableAsPromise();
+        const {
+          pipe
+        } = (0, _server.renderToPipeableStream)(bodyComponent, {
+          onAllReady() {
+            pipe(writableStream);
+          },
+          onError(error) {
+            writableStream.destroy(error);
+          }
+        });
+        bodyHtml = await writableStream;
       } catch (e) {
         // ignore @reach/router redirect errors
         if (!(0, _reachRouter.isRedirect)(e)) throw e;
@@ -263,6 +307,18 @@ async function staticPage({
       setPostBodyComponents,
       setBodyProps,
       pathname: pagePath
+    });
+
+    // we want to run Head after onRenderBody, so Html and Body attributes
+    // from Head wins over global ones from onRenderBody
+    (0, _headExportHandlerForSsr.headHandlerForSSR)({
+      pageComponent,
+      setHeadComponents,
+      setHtmlAttributes,
+      setBodyAttributes,
+      staticQueryContext: (0, _loader.getStaticQueryResults)(),
+      pageData,
+      pagePath
     });
     (0, _apiRunnerSsr.apiRunner)(`onPreRenderHTML`, {
       getHeadComponents,
