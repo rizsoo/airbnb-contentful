@@ -6,7 +6,7 @@ import { graphql } from "gatsby"
 import PageContentSection from "../components/PageContentSection"
 
 const PageTemplate = ({ data: { page, navbar } }) => {
-  console.log(page);
+  // console.log(page);
   return (
     <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} lang={page && page} />
   )

@@ -29,12 +29,12 @@ const PageContentSection = ({ title, content, navbar, lang }) => {
                 } else return <img src={node.data.target.file.url} alt="" />
             },
             [INLINES.HYPERLINK]: (node) => {
-                console.log(node);
+                // console.log(node);
                 let link = node.data.uri
                 return <a href={link} target={link.includes("http") && "_blank"}>{node.content[0].value}</a>
             },
             [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-                console.log(node);
+                // console.log(node);
                 let data = node.data.target
                 switch (data.__typename) {
                     case "ContentfulPageList":

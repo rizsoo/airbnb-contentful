@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from 'gatsby';
 
 export const FullCoverCard = ({ data }) => {
-    console.log(data);
+    // console.log(data);
     return (
         <>
             {data.map(el => {
