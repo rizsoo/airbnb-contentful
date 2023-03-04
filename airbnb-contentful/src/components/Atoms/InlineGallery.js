@@ -20,6 +20,8 @@ export const Gallery = styled.div`
     gap: 5px;
     img {
         object-fit: cover;
-        height: 100%;
+        @-moz-document url-prefix() {
+            height: 100%;
+        }
     }
 `
