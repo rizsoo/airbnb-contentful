@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { BLOCKS, INLINES } from "@contentful/rich-text-types"
 // import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -18,13 +18,7 @@ import { useState } from 'react'
 
 const PageContentSection = ({ title, content, navbar, lang }) => {
     // console.log(content);
-    const [isLoaded, setIsLoaded] = useState(false);
 
-    useEffect(() => {
-        setIsLoaded(true)
-    }, [content])
-    
-    console.log(isLoaded);
     const options = {
         renderNode: {
             [BLOCKS.EMBEDDED_ASSET]: (node) => {

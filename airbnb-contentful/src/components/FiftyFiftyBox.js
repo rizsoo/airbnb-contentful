@@ -59,6 +59,9 @@ export const Card = styled.div`
     margin: 20px auto;
     img {
         min-height: 300px;
+        @-moz-document url-prefix() {
+            height: 100%;
+        }
         object-fit: cover;
         aspect-ratio: 1 / 1;
     }
