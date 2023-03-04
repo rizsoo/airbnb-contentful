@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 export const InlineGallery = ({ images }) => {
     // console.log(images);
+    
     return (
         <Gallery>
             {images.map((el) => {

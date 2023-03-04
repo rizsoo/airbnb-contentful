@@ -5,6 +5,7 @@ import { LogInOutline } from 'react-ionicons'
 
 const FiftyFiftyBox = ({ data }) => {
     // console.log(data);
+    
     return (
         <>
             {data.map(el => {

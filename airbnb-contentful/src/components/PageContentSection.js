@@ -18,7 +18,6 @@ import { useState } from 'react'
 
 const PageContentSection = ({ title, content, navbar, lang }) => {
     // console.log(content);
-
     const options = {
         renderNode: {
             [BLOCKS.EMBEDDED_ASSET]: (node) => {

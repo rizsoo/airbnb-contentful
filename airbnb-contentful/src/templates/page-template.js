@@ -15,12 +15,11 @@ const PageTemplate = ({ data: { page, navbar } }) => {
   useEffect(() => {
       setIsLoaded(true)
   }, [page])
-  
-  console.log(isLoaded);
+
 
   return (
     <>
-        {!isLoaded ? 
+        {isLoaded ? 
       <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} lang={page && page} />
       : 
       <LoaderSpinner>
