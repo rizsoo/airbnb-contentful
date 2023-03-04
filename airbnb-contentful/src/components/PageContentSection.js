@@ -13,7 +13,7 @@ import { InlineGallery } from './Atoms/InlineGallery'
 import FiftyFiftyBox from './FiftyFiftyBox'
 import { Search } from './Search'
 import { FullCoverCard } from './FullCoverCard'
-import { Language } from './language'
+import { Localization } from './Localization'
 
 
 const PageContentSection = ({ title, content, navbar, lang }) => {
@@ -112,7 +112,7 @@ const PageContentSection = ({ title, content, navbar, lang }) => {
             <PageContent>
                 {output}
             </PageContent>
-            <Language data={lang} />
+            <Localization data={lang} />
         </div>
     )
 }

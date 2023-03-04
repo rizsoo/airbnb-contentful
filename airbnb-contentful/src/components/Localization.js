@@ -5,7 +5,7 @@ import en from '../assets/img/en.png'
 import hu from '../assets/img/hu.png'
 import { Link } from 'gatsby';
 
-export const language = ({ data }) => {
+export const Localization = ({ data }) => {
     // console.log(data);
     const [isOpen, setIsOpen] = useState(true);
 
