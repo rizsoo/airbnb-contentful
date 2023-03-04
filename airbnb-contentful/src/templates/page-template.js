@@ -25,8 +25,8 @@ const PageTemplate = ({ data: { page, navbar } }) => {
       <LoaderSpinner>
         <ColorRing
         visible={true}
-        height="180"
-        width="180"
+        height="200"
+        width="200"
         ariaLabel="blocks-loading"
         wrapperStyle={{}}
         wrapperClass="blocks-wrapper"
@@ -39,11 +39,11 @@ const PageTemplate = ({ data: { page, navbar } }) => {
 }
 
 export const LoaderSpinner = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100vw !important;
+  height: 100vh !important;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center !important;
+  justify-content: center !important;
 `
 
 export const query = graphql`
