@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types"
+import { BLOCKS, INLINES } from "@contentful/rich-text-types"
 // import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { renderRichText } from "gatsby-source-contentful/rich-text"
 import MenuList from '../components/MenuList'
-import { Slide } from './Slide'
 import BorderlessCard from './BorderlessCard'
 import { AlertBox } from './AlertBox'
 import { Navbar } from './Navbar'
@@ -25,13 +24,13 @@ const PageContentSection = ({ title, content, navbar, lang }) => {
                 // console.log(node);
                 let link = node.data.target.description;
                 if (link) {
-                    return <a href={link} target={link.includes("http") && "_blank"}><img src={node.data.target.file.url} alt="" /></a>
+                    return <a href={link} target={link.includes("http") && "_blank"} rel="noreferrer"><img src={node.data.target.file.url} alt="" /></a>
                 } else return <img src={node.data.target.file.url} alt="" />
             },
             [INLINES.HYPERLINK]: (node) => {
                 // console.log(node);
                 let link = node.data.uri
-                return <a href={link} target={link.includes("http") && "_blank"}>{node.content[0].value}</a>
+                return <a href={link} target={link.includes("http") && "_blank"} rel="noreferrer">{node.content[0].value}</a>
             },
             [BLOCKS.EMBEDDED_ENTRY]: (node) => {
                 // console.log(node);
@@ -96,6 +95,8 @@ const PageContentSection = ({ title, content, navbar, lang }) => {
                                 data={data.cards}
                             />
                         )
+                    default:
+                        return null
                 }
             }
         }
@@ -106,7 +107,7 @@ const PageContentSection = ({ title, content, navbar, lang }) => {
 
     return (
         <div>
-            <Navbar navbar={navbar} />
+            <Navbar navbar={navbar} lang={lang} />
             <PageTitle>{title}</PageTitle>
             <PageContent>
                 {output}

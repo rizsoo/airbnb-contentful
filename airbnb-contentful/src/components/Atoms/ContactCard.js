@@ -13,7 +13,7 @@ export const ContactCard = ({ el, lang }) => {
                 <CardTextarea>
                     <h4>{el.title}</h4>
                     {isShown && el.link ?
-                        <a href={el.link} target="_blank">
+                        <a href={el.link} target="_blank" rel="noreferrer">
                             <p>{el.description.description} <OpenOutline
                                 color={'#1996c3'}
                                 title={"asd"}

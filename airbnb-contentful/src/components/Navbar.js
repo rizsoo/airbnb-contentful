@@ -4,14 +4,14 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { ArrowDownCircleOutline, AddCircleOutline } from 'react-ionicons'
 
-export const Navbar = ({ navbar }) => {
+export const Navbar = ({ navbar, lang }) => {
     const [isOpen, setIsOpen] = useState(false);
     const parentRef = useRef();
     let data = navbar.page
     return (
         <Header>
             <HeaderContent>
-                <Link to="/"><h1>Airbnb of Kris</h1></Link>
+                <Link to={lang.node_locale === "hu" ? "/" : "/en"}><h1>Airbnb of Kris</h1></Link>
                 {isOpen ? <AddCircleOutline
                     color={'#00000'}
                     title={"asd"}

@@ -11,7 +11,7 @@ const FiftyFiftyBox = ({ data }) => {
                 return (
                     <>
                         {el.link ?
-                            <Link to={el.link} target={el.link.includes("http") && "_blank"}>
+                            <Link to={el.link} target={el.link.includes("http") && "_blank"} rel="noreferrer">
                                 <Card>
                                     <img src={el.image && el.image.url} alt='' />
                                     <TextBox>

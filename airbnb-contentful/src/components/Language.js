@@ -31,7 +31,7 @@ export const Language = ({ data }) => {
                     </Link>
                 ))}
             </Flag>
-            <img src={require(`../assets/img/${data.node_locale}.png`).default} alt="" onClick={() => { setIsOpen(!isOpen) }}></img>
+            <img src={require(`../assets/img/${data.node_locale}.png`).default} alt="" onClick={() => { setIsOpen(!isOpen) }} />
         </LangaugeSelector>
     )
 }
