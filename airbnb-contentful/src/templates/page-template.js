@@ -3,7 +3,7 @@ import './zero.css'
 // import styled from 'styled-components'
 import { graphql } from "gatsby"
 import { ColorRing } from 'react-loader-spinner'
-
+import { Helmet } from 'react-helmet';
 import PageContentSection from "../components/PageContentSection"
 import { useState, useEffect } from 'react'
 import styled from 'styled-components'
@@ -19,6 +19,9 @@ const PageTemplate = ({ data: { page, navbar } }) => {
 
   return (
     <>
+      <Helmet>
+        <title>{page.title}</title>
+      </Helmet>
       {isLoaded ?
         <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} lang={page && page} />
         :
