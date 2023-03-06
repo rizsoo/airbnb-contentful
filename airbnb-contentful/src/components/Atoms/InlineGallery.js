@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const InlineGallery = ({ images }) => {
     // console.log(images);
-    
+
     return (
         <Gallery>
             {images.map((el) => {
@@ -18,6 +18,7 @@ export const InlineGallery = ({ images }) => {
 export const Gallery = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
+    align-items: stretch;
     gap: 5px;
     img {
         object-fit: cover;
