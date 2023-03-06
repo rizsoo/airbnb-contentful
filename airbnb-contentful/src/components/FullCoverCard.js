@@ -9,8 +9,7 @@ export const FullCoverCard = ({ data }) => {
             {data.map(el => {
                 return (
                     <Link to={`/${el.node_locale}/${el.slug}`}>
-                        <Coverbox>
-                            <img src={el.featuredImage.url} alt="" />
+                        <Coverbox bg={el.featuredImage && el.featuredImage.url}>
                             <h4>{el.title}</h4>
                         </Coverbox>
                     </Link>
@@ -28,14 +27,22 @@ export const Coverbox = styled.div`
     margin: 15px;
 
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
 
     cursor: pointer;
     overflow: hidden;
 
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     margin-left: auto;
     margin-right: auto;
+
+    background: url(${props => props.bg});
+    background-size: cover;
+    background-position: center;
+
     h4 {
         font-weight: bold;
         text-align: center;
@@ -45,25 +52,7 @@ export const Coverbox = styled.div`
         border: none;
         border-radius: 5px;
       
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      
         transition: all ease-in-out 0.2s;
-    }
-    img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-        transition: all ease-in-out 0.2s;
-      
-        position: relative;
-        z-index: -1;
-    }
-    &:hover > img {
-        filter: blur(2px);
     }
     &:hover > h4 {
         opacity: 1;

@@ -5,7 +5,7 @@ import { LogInOutline } from 'react-ionicons'
 
 const FiftyFiftyBox = ({ data }) => {
     // console.log(data);
-    
+
     return (
         <>
             {data.map(el => {
@@ -55,14 +55,12 @@ export const Card = styled.div`
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     height: auto;
+    align-items: stretch;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
     margin: 20px auto;
     img {
         min-height: 300px;
-        @-moz-document url-prefix() {
-            height: 100%;
-        }
         object-fit: cover;
         aspect-ratio: 1 / 1;
     }
