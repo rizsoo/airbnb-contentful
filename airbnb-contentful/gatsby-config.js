@@ -23,6 +23,12 @@ module.exports = {
         showSpinner: false,
       },
     },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: 'src/assets/favicon_airbnb.png',
+      },
+    },
     `gatsby-plugin-image`,
   ],
 }

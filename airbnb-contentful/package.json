@@ -17,6 +17,7 @@
     "contentful": "^9.2.20",
     "gatsby": "^5.4.2",
     "gatsby-plugin-image": "^3.4.0",
+    "gatsby-plugin-manifest": "^5.7.0",
     "gatsby-plugin-nprogress": "^5.7.0",
     "gatsby-source-contentful": "^8.4.1",
     "react": "^18.2.0",
