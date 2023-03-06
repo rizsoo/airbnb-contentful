@@ -13,27 +13,27 @@ const PageTemplate = ({ data: { page, navbar } }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-      setIsLoaded(true)
+    setIsLoaded(true)
   }, [page])
 
 
   return (
     <>
-        {isLoaded ? 
-      <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} lang={page && page} />
-      : 
-      <LoaderSpinner>
-        <ColorRing
-        visible={true}
-        height="200"
-        width="200"
-        ariaLabel="blocks-loading"
-        wrapperStyle={{}}
-        wrapperClass="blocks-wrapper"
-        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        />
-      </LoaderSpinner>
-    }
+      {isLoaded ?
+        <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} lang={page && page} />
+        :
+        <LoaderSpinner>
+          <ColorRing
+            visible={true}
+            height="200"
+            width="200"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+          />
+        </LoaderSpinner>
+      }
     </>
   )
 }
@@ -122,6 +122,7 @@ query MyQuery($slug: String, $node_locale: String) {
                 description {
                   description
                 }
+                link
               }
             }
             ... on ContentfulFiftyFiftyCards {
