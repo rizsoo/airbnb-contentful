@@ -10,7 +10,10 @@ export const MozaikCards = ({ props }) => {
                     <Link to={`/${el.node_locale}/${el.slug}`}>
                         <GuideCards>
                             <img src={el.featuredImage.url} alt='image_machines' />
-                            <h5>{el.title}</h5>
+                            <span>
+                                <p>{el.description && el.description.description}</p>
+                                <h5>{el.title}</h5>
+                            </span>
                         </GuideCards>
                     </Link>
                 )
@@ -19,42 +22,51 @@ export const MozaikCards = ({ props }) => {
     )
 }
 export const GuideComponent = styled.div`
-
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 20px;
     height: auto;
 
     margin: 10px auto;
-    a {
-        max-width: calc(300px - 10px);
-        height: 180px; 
+    @media (max-width: 615px) {
+        gap: 10px;
     }
 `
 export const GuideCards = styled.div`
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 3px 10px;
-
+box-shadow: rgba(149, 157, 165, 0.3) 0px 8px 24px;
     max-width: calc(300px - 10px);
-    height: 180px;
+    min-height: 90px;
+    padding: 10px 0;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
     align-items: center;
-    gap: 15px;
 
-    border-radius: 10px;
+    border-radius: 30px;
     img {
-        height: 55px;
+        max-height: 55px;
+        justify-self: center;
+    }
+    p {
+        font-size: 12px;
+        margin: 0;
+        color: #ff5a5f;
+        font-weight: 500;
     }
     h5 {
         font-weight: bold;
-        text-align: center;
-        padding: 0 15px;
-      }
-      @media (max-width: 415px) {
+        text-align: left !important;
+        margin: 0;
+        padding: 0 10px 0 0;
+        word-break: break-word;
+    }
+    @media (max-width: 615px) {
+        gap: 25px;
         h5 {
             font-size: 18px;
         }
-      }
+        img {
+            padding-left: 25px;
+        }
+    }
 `
