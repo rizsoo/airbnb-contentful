@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { BLOCKS, INLINES } from "@contentful/rich-text-types"
 // import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { renderRichText } from "gatsby-source-contentful/rich-text"
+import welcome from '../assets/img/parl.png'
 import MenuList from '../components/MenuList'
 import BorderlessCard from './BorderlessCard'
 import { AlertBox } from './AlertBox'
@@ -18,6 +19,8 @@ import { useState } from 'react'
 
 const PageContentSection = ({ title, content, navbar, lang }) => {
     // console.log(content);
+    const [first, setfirst] = useState(localStorage.getItem('myCat') === "Tom" ? true : false)
+    console.log(first);
     const options = {
         renderNode: {
             [BLOCKS.EMBEDDED_ASSET]: (node) => {
@@ -104,9 +107,15 @@ const PageContentSection = ({ title, content, navbar, lang }) => {
 
     const output = content && renderRichText(content, options)
     // console.log(output);
+    const cat = localStorage.getItem('myCat');
 
     return (
         <div>
+            <WelcomeWall onClick={() => (localStorage.setItem('myCat', 'Tom'), setfirst(true))} first={first} >
+                <img src={welcome} alt="" />
+                <h1>Welcome to Budapest!</h1>
+                <p>click to continue...</p>
+            </WelcomeWall>
             <Navbar navbar={navbar} lang={lang} />
             <PageTitle>{title}</PageTitle>
             <PageContent>
@@ -134,6 +143,32 @@ export const PageContent = styled.div`
     margin: 0 auto;
     padding: 5px 10px;
 `
+
+export const WelcomeWall = styled.div`
+    position: fixed;
+    background-color: #ff5a5f;
+    color: white;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    ${props => props.first ? "transform: translateY(-100%)" : null};
+    transition: transform ease 1s;
+    img {
+        width: 40vh;
+    }
+    h1 {
+        padding: 0 20px;
+        text-align: center;
+    }
+    z-index: 101;
+    &::after {
+        content: "";
+        
+    }
+    `
 
 export default PageContentSection
 

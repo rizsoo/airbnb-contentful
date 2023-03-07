@@ -61,12 +61,17 @@ box-shadow: rgba(149, 157, 165, 0.3) 0px 8px 24px;
         word-break: break-word;
     }
     @media (max-width: 615px) {
-        gap: 25px;
+        gap: 5px;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
         h5 {
-            font-size: 18px;
+            font-size: 16px;
+            text-align: center !important;
+            padding: 0 15px;
         }
         img {
-            padding-left: 25px;
+            
         }
     }
 `

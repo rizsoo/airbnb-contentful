@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { ArrowDownCircleOutline, AddCircleOutline } from 'react-ionicons'
+import { ArrowUpCircle } from 'react-ionicons'
 
 export const Navbar = ({ navbar, lang }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,22 +12,15 @@ export const Navbar = ({ navbar, lang }) => {
         <Header>
             <HeaderContent>
                 <Link to={lang.node_locale === "hu" ? "/" : "/en"}><h1>Airbnb of Kris</h1></Link>
-                {isOpen ? <AddCircleOutline
-                    color={'#00000'}
+                <ArrowUpCircle
+                    color={'white'}
                     title={"asd"}
                     height="45px"
                     stroke-width="10"
                     width="45px"
-                    style={{ transform: "rotate(-45deg)" }}
-                    onClick={() => setIsOpen(false)}
-                /> : <ArrowDownCircleOutline
-                    color={'#00000'}
-                    title={'asd'}
-                    height="45px"
-                    width="45px"
-                    onClick={() => setIsOpen(true)}
+                    style={isOpen ? { transform: "rotate(-180deg)", transition: "transform ease-in-out 0.3s" } : { transition: "transform ease-in-out 0.3s" }}
+                    onClick={() => setIsOpen(!isOpen)}
                 />
-                }
                 <NavbarContent
                     ref={parentRef}
                     style={isOpen ? {

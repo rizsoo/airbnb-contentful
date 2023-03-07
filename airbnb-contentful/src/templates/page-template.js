@@ -16,7 +16,6 @@ const PageTemplate = ({ data: { page, navbar } }) => {
     setIsLoaded(true)
   }, [page])
 
-
   return (
     <>
       <Helmet>
