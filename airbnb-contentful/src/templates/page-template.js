@@ -1,6 +1,5 @@
 import React from 'react'
 import './zero.css'
-// import styled from 'styled-components'
 import { graphql } from "gatsby"
 import { ColorRing } from 'react-loader-spinner'
 import { Helmet } from 'react-helmet';
@@ -9,7 +8,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const PageTemplate = ({ data: { page, navbar } }) => {
-  // console.log(page);
+
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {

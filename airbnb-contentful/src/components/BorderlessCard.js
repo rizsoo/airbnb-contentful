@@ -5,7 +5,7 @@ import { LogInOutline } from 'react-ionicons'
 
 const BorderlessCard = (props) => {
   let data = props.props
-  console.log(data);
+  // console.log(data);
   return (
     <>
       {data.map(el => {
