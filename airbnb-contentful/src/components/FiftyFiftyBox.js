@@ -111,7 +111,7 @@ export const Hashtags = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    margin: 15px 0;
+    margin: 0 0 15px 0;
     b {
         padding: 5px;
         background-color: #f9f9f9;
