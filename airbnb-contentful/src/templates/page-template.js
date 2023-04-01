@@ -23,7 +23,7 @@ const PageTemplate = ({ data: { page, navbar } }) => {
       {isLoaded ?
         <PageContentSection title={page && page.title} content={page && page.content} navbar={navbar} lang={page && page} />
         :
-        <LoaderSpinner>
+        <div style={{ width: "100vw", height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
           <ColorRing
             visible={true}
             height="200"
@@ -33,19 +33,12 @@ const PageTemplate = ({ data: { page, navbar } }) => {
             wrapperClass="blocks-wrapper"
             colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
           />
-        </LoaderSpinner>
+        </div>
       }
     </>
   )
 }
 
-export const LoaderSpinner = styled.div`
-  width: 100vw !important;
-  height: 100vh !important;
-  display: flex;
-  align-items: center !important;
-  justify-content: center !important;
-`
 
 export const query = graphql`
 query MyQuery($slug: String, $node_locale: String) {
